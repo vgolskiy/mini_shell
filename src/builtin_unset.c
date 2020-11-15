@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:30:59 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/08 15:34:27 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/15 19:23:47 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				ft_unset(t_ex *ex)
 	i = 0;
 	while ((key = ex->process.argv[++i]))
 	{
-		if ((key) && (!ft_strchr(key, '=')))
+		if ((key) && (!ft_strchr(key, '=')) && hash_verify_key(key))
 		{
 			hash_unset(ex->shell->environ, key);
 		}
