@@ -1,0 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/29 17:29:45 by dchief            #+#    #+#             */
+/*   Updated: 2020/11/11 16:16:22 by dchief           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/executor.h"
+#include "../include/envp.h"
+
+static void	put_escapedstr(char *value)
+{
+	while (*value)
+	{
+		if (*value == '\\')
+		{
+			ft_putchar(*value);
+		}
+		ft_putchar(*value);
+		value++;
+	}
+}
+
+static void	print_export(char *key, char *value)
+{
+	int klen;
+
+	klen = (int)ft_strlen(key);
+	if (klen > 2 && key[klen - 2] == '%' && key[klen - 1] == '%')
+		return ;
+	if (key[0] == '?')
+		return ;
+	if (ft_strcmp(key, "_") == 0)
+		return ;
+	ft_putstr("declare -x ");
+	ft_putstr(key);
+	if (value)
+	{
+		ft_putstr("=\"");
+		put_escapedstr(value);
+		ft_putstr("\"");
+	}
+	ft_putstr("\n");
+}
+
+int			ft_export(t_ex *ex)
+{
+	char	*env;
+	int		i;
+
+	if (ex->process.argc == 1)
+	{
+		hash_iterate(ex->shell->environ, print_export);
+		return (1);
+	}
+	i = 0;
+	while (++i < ex->process.argc)
+	{
+		env = ex->process.argv[i];
+		if (env[0] == '=')
+			continue;
+		hash_import(ex->shell->environ, env);
+		if (ex->process.envp)
+			stringlist_destroy(ex->process.envp);
+		ex->process.envp = hash_to_envp(ex->shell->environ);
+	}
+	return (1);
+}
