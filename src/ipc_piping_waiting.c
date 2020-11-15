@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:36:00 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/10 15:36:43 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 20:26:41 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ void	wait_for_all_cmds(t_ex *ex)
 	}
 }
 
+int	count_cmds(t_ex *ex)
+{
+	t_token	**cur;
+	int		i;
+
+	i = 0;
+	cur = ex->pipeline->child;
+	while(cur && *cur)
+	{
+		cur++;
+		i++;
+	}
+	return (i);
+}
+
 void	wait_for_pipeline(pid_t pid, t_ex *ex)
 {
 	int		status;
@@ -49,6 +64,7 @@ void	wait_for_pipeline(pid_t pid, t_ex *ex)
 		free(x);
 	}
 }
+
 
 void	kill_all_pipeline(t_ex *ex)
 {
@@ -66,3 +82,4 @@ void	kill_all_pipeline(t_ex *ex)
 		i++;
 	}
 }
+

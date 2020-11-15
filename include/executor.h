@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:19:53 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/15 19:51:36 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 20:30:34 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_ex
 
 	t_token			*root;
 	t_token			*pipeline;
+	t_boolean		is_single_cmd_pipeline;
 	t_token			*command;
 
 	t_resolved		process;
@@ -135,5 +136,6 @@ void				lexer_destroy(t_lexer *my);
 char				*linegetter(char *prompt, t_ex *ex);
 t_boolean			ft_isatty(int fd);
 t_boolean			ft_isafile(int fd);
+int					count_cmds(t_ex *ex);
 
 #endif

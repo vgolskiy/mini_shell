@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:38:56 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 18:34:04 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 20:36:12 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		repl_check_pipeline_syntax(t_ex *ex)
 	t_token	**cur;
 
 	cur = ex->root->child;
-	if ((*(cur +1)) == NULL && (*cur)->start == (*cur)->stop )
+	if (cur && *cur && (*(cur +1)) == NULL && (*cur)->start == (*cur)->stop )
 	{
 		if (ex->shell->executing)
 			ft_putendl_fd("Incorrect syntax", 2);
