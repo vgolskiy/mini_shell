@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:29:45 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 18:41:59 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 20:07:33 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	print_export(char *key, char *value)
 		return ;
 	if (key[0] == '?')
 		return ;
-	if (ft_strcmp(key, "_") == 0)
+	if ((ft_strcmp(key, "_") == 0) || (ft_strcmp(key, "?") == 0))
 		return ;
 	ft_putstr("declare -x ");
 	ft_putstr(key);
@@ -63,8 +63,11 @@ int			ft_export(t_ex *ex)
 	{
 		env = ex->process.argv[i];
 		if (env[0] == '=')
-			continue;
-		hash_import(ex->shell->environ, env);
+		{
+			print_err("hash_import", "=", "not a valid identifier");
+			continue ;
+		}
+		hash_import(ex->shell->environ, env, false);
 		if (ex->process.envp)
 			stringlist_destroy(ex->process.envp);
 		ex->process.envp = hash_to_envp(ex->shell->environ);

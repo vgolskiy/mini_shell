@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_features.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:40:24 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/13 21:30:45 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/15 19:52:42 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		hash_import_many(t_hash *root, char **envp)
 	c = envp;
 	while (*c)
 	{
-		hash_import(root, *c);
+		hash_import(root, *c, true);
 		c++;
 	}
 }

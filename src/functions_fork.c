@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions_fork.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:27:06 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/13 20:17:04 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/15 20:15:00 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ int				handle_fork(char *cmd, t_ex *ex)
 	refresh_envp(ex);
 	current = get_builtin_by_name(cmd);
 	if (current.fn)
-		return (current.fn(ex));
+	{
+		current.fn(ex);
+		return (0);
+	}
 	pid = fork();
 	assert(pid >= 0, "minishell", "Falied to fork process", 1);
 	if (pid > 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:19:53 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/13 20:37:52 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/15 19:51:36 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void				test_syntax_pipeline(t_token *t, t_ex *ex);
 void				wait_for_all_cmds(t_ex *ex);
 void				cheanup_ex(t_ex *ex);
 void				wait_for_pipeline(pid_t pid, t_ex *ex);
-void				hash_import_many(t_hash *root, char **envp);
+void				hash_import(t_hash *root, char *envp, t_boolean force);
 void				setup_shell_pwd(t_ex *ex);
 void				lexer_destroy(t_lexer *my);
 char				*linegetter(char *prompt, t_ex *ex);

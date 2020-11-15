@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_declare.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:29:45 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/08 15:26:52 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/15 19:52:13 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				ft_declare(t_ex *ex)
 	{
 		env = ex->process.argv[i];
 		if (env[0] != '=')
-			hash_import(ex->shell->environ, env);
+			hash_import(ex->shell->environ, env, false);
 		i++;
 	}
 	if (ex->process.envp)

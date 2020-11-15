@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:24:34 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 19:22:56 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 20:01:15 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int hash_verify_key(char *key)
 	char c;
 
 	i = -1;
-	if (!key)
+	if (!key || !(*key))
 		return (0);
-	while (c = key[++i])
+	while ((c = key[++i]))
 	{
 		if (ft_isalpha(c) || (c == '_' || c == '%')) {
 			continue;
@@ -47,7 +47,7 @@ int hash_verify_key(char *key)
 	return (1);
 }
 
-static void	hash_import2(t_hash *root, char *envp, char *end)
+static void	hash_import2(t_hash *root, char *envp, char *end, t_boolean force)
 {
 	char	*temp;
 	char	*value;
@@ -61,8 +61,9 @@ static void	hash_import2(t_hash *root, char *envp, char *end)
 		*(end--) = '\0';
 		prefix = hash_get(root, envp);
 	}
-	if (ft_strchr(envp, '+') || (ft_strlen(envp) == 0) || (hash_verify_key(envp) == 0))
-		print_err("export", envp, "not a valid identifier");
+	if ((ft_strchr(envp, '+') || (ft_strlen(envp) == 0) || (hash_verify_key(envp) == 0))
+	&& !force)
+		print_err("hash_import", envp, "not a valid identifier");
 	else
 	{
 		temp = ft_strjoin(prefix, value);
@@ -73,7 +74,7 @@ static void	hash_import2(t_hash *root, char *envp, char *end)
 	}
 }
 
-void		hash_import(t_hash *root, char *envp)
+void		hash_import(t_hash *root, char *envp, t_boolean force)
 {
 	char	*temp2;
 	char	*end;
@@ -84,15 +85,19 @@ void		hash_import(t_hash *root, char *envp)
 	end = ft_strchr(envp, '=');
 	if (!end)
 	{
-		if (!hash_verify_key(envp))
+		if (!hash_verify_key(envp) && !force)
+		{
 			print_err("export", envp, "not a valid identifier");
-		if (!hash_has(root, envp) && hash_verify_key(envp))
+			free(envp);
+			return;
+		}
+		if (!hash_has(root, envp))
 			hash_set(root, envp, NULL);
 		free(envp);
 		return ;
 	}
 	temp2 = ft_strdup(envp);
-	hash_import2(root, envp, end);
+	hash_import2(root, envp, end, force);
 	free(envp);
 	free(temp2);
 }
