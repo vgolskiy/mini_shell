@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 13:43:50 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/15 23:09:19 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 23:34:01 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ void	print_err(char *msg1, char *variable, char *msg2)
 	ft_putendl_fd(msg2, 2);
 }
 
+static void ft_cd_update_state(t_ex *ex, char *oldpwd) {
+	char	*nextpwd;
+
+	nextpwd = getcwd(NULL, 0);
+	if (ex->is_single_cmd_pipeline && !oldpwd)
+		hash_set(ex->shell->environ, "PWD", nextpwd);
+	if (ex->is_single_cmd_pipeline && oldpwd)
+		hash_set2(ex->shell->environ, (t_pair){"OLDPWD", oldpwd},
+					(t_pair){"PWD", nextpwd});
+	free(nextpwd);
+}
+
 int		ft_cd(t_ex *ex)
 {
 	char	*oldpwd;
@@ -62,18 +74,11 @@ int		ft_cd(t_ex *ex)
 	oldpwd = hash_get(ex->shell->environ, "PWD");
 	if (!nextpwd)
 		return (-1);
-
 	if (chdir(nextpwd) < 0)
 	{
 		print_err("cd", nextpwd, strerror(errno));
 		return (-1);
 	}
-	nextpwd = getcwd(NULL, 0);
-	if (ex->is_single_cmd_pipeline && !oldpwd)
-		hash_set(ex->shell->environ, "PWD", nextpwd);
-	if (ex->is_single_cmd_pipeline && oldpwd)
-		hash_set2(ex->shell->environ, (t_pair){"OLDPWD", oldpwd},
-					(t_pair){"PWD", nextpwd});
-	free(nextpwd);
+	ft_cd_update_state(ex, oldpwd);
 	return (1);
 }
