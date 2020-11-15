@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:29:45 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 20:07:33 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 22:38:31 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ int			ft_export(t_ex *ex)
 			print_err("hash_import", "=", "not a valid identifier");
 			continue ;
 		}
-		hash_import(ex->shell->environ, env, false);
+		if (ex->is_single_cmd_pipeline)
+			hash_import(ex->shell->environ, env, false);
 		if (ex->process.envp)
 			stringlist_destroy(ex->process.envp);
 		ex->process.envp = hash_to_envp(ex->shell->environ);
 	}
 	return (1);
 }
-
 

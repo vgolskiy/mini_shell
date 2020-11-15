@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:30:59 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 19:23:47 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 22:38:16 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int				ft_unset(t_ex *ex)
 	{
 		if ((key) && (!ft_strchr(key, '=')) && hash_verify_key(key))
 		{
-			hash_unset(ex->shell->environ, key);
+			if (ex->is_single_cmd_pipeline)
+				hash_unset(ex->shell->environ, key);
 		}
 		else
 		{

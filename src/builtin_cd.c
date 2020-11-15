@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 13:43:50 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/13 20:26:30 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/15 23:09:19 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,20 @@ int		ft_cd(t_ex *ex)
 	}
 	nextpwd = resolve_newpwd(ex);
 	oldpwd = hash_get(ex->shell->environ, "PWD");
-	if (!nextpwd || !oldpwd)
-	{
-		assert((nextpwd != NULL) || (oldpwd != NULL), "nextpwd || oldpwd", ": Error allocating temporary memory", 1);//Добавил твою обработку вместо своей, правильно использовал?
+	if (!nextpwd)
 		return (-1);
-	}
+
 	if (chdir(nextpwd) < 0)
 	{
 		print_err("cd", nextpwd, strerror(errno));
 		return (-1);
 	}
 	nextpwd = getcwd(NULL, 0);
-	hash_set2(ex->shell->environ, (t_pair){"OLDPWD", oldpwd},
-				(t_pair){"PWD", nextpwd});
+	if (ex->is_single_cmd_pipeline && !oldpwd)
+		hash_set(ex->shell->environ, "PWD", nextpwd);
+	if (ex->is_single_cmd_pipeline && oldpwd)
+		hash_set2(ex->shell->environ, (t_pair){"OLDPWD", oldpwd},
+					(t_pair){"PWD", nextpwd});
 	free(nextpwd);
 	return (1);
 }

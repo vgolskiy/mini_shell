@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/27 14:17:23 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 20:29:45 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 22:40:13 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ void	process_pipeline(t_token *t, t_ex *ex)
 		ex->shell->pids[i] = 0;
 	ex->pipeline = t;
 	ex->is_single_cmd_pipeline = (count_cmds(ex) == 1);
-	ft_putnbr_fd(count_cmds(ex),2);
-	ft_putendl_fd("parasha", 2);
 	cur = t->child;
 	while (cur && *cur && (ex->command = *cur) && ex->shell->executing)
 	{

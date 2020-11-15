@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:29:45 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 19:52:13 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/15 22:38:45 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				ft_declare(t_ex *ex)
 	while (i < ex->process.argc)
 	{
 		env = ex->process.argv[i];
-		if (env[0] != '=')
+		if (ex->is_single_cmd_pipeline)
 			hash_import(ex->shell->environ, env, false);
 		i++;
 	}
