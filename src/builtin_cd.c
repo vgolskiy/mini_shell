@@ -6,7 +6,7 @@
 /*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 13:43:50 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/16 14:08:38 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/17 00:07:59 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@
 
 static t_boolean	is_resolvable(t_ex *ex, char *path)
 {
+	struct stat	file_info;
+
 	if (!path)
 		return (false);
-	if (path[0] == '/')
+	if (stat(path, &file_info) == -1)
+	{
+		ft_putendl_fd(strerror(errno), 2);
+		return (false);
+	}
+	if (S_ISDIR(file_info.st_mode))
 		return (true);
 	return (hash_has(ex->shell->environ, "PWD"));
 }
@@ -34,8 +41,10 @@ char				*resolve_newpwd(t_ex *ex)
 	}
 	else if (ft_strcmp(ex->process.argv[1], "-") == 0)
 	{
-		nextpwd = hash_get(ex->shell->environ, "OLDPWD");
-		ft_putendl_fd(nextpwd, 1);
+		if (!(nextpwd = hash_get(ex->shell->environ, "OLDPWD")))
+			ft_putendl_fd("bash: cd: OLDPWD not set", 2);
+		else
+			ft_putendl_fd(nextpwd, 1);
 	}
 	else if (is_resolvable(ex, ex->process.argv[1]))
 		nextpwd = ex->process.argv[1];
