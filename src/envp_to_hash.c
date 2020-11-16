@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp_to_hash.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:24:34 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 20:01:15 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 10:19:28 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		stringlist_destroy(char **list)
 }
 
 
-int hash_verify_key(char *key)
+int			hash_verify_key(char *key)
 {
 	int i;
 	char c;
@@ -33,13 +33,14 @@ int hash_verify_key(char *key)
 	i = -1;
 	if (!key || !(*key))
 		return (0);
+	if (key[0] == '%' || ft_isdigit(key[0]))
+		return (0);
 	while ((c = key[++i]))
 	{
 		if (ft_isalpha(c) || (c == '_' || c == '%')) {
 			continue;
 		}
 		if (ft_isdigit(c)) {
-			if (i == 0) return 0;
 			continue;
 		}
 		return 0;
