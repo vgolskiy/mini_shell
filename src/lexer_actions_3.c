@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_actions_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:32:37 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/10 18:47:09 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 18:10:18 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void		mark_identifier(t_lexer *p, char x)
 		j = mark_identifier_step_3(p);
 	if (j == 0)
 	{
-		if ((p->state == '\"') || (p->cat[p->pos] == '\0')
-				|| ft_isspace(p->cat[p->pos]))
+		if ((p->state == '\"') || (p->str[p->pos] == '\0') ||
+			(p->str[p->pos] == '+') || (p->str[p->pos] == '=') || ft_isspace(p->str[p->pos]))
 			p->cat[pos1] = '=';
 		else
 			p->cat[pos1] = '.';
