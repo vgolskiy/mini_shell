@@ -6,13 +6,21 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 13:43:50 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/15 23:37:37 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 10:39:42 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/executor.h"
 #include "../include/envp.h"
 #include "../include/hash.h"
+
+static t_boolean is_resolvable(t_ex *ex, char *path) {
+	if (!path)
+		return false;
+	if (path[0] == '/')
+		return true;
+	return hash_has(ex->shell->environ, "PWD");
+}
 
 char	*resolve_newpwd(t_ex *ex)
 {
@@ -31,8 +39,12 @@ char	*resolve_newpwd(t_ex *ex)
 		nextpwd = hash_get(ex->shell->environ, "OLDPWD");
 		ft_putendl_fd(nextpwd, 1);
 	}
-	else
+	else if (is_resolvable(ex, ex->process.argv[1])) {
 		nextpwd = ex->process.argv[1];
+	} else {
+		nextpwd = NULL;
+	}
+
 	return (nextpwd);
 }
 
