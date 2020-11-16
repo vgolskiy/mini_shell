@@ -16,9 +16,11 @@
 int				ft_unset(t_ex *ex)
 {
 	int		i;
+	int		code;
 	char	*key;
 
 	i = 0;
+	code = 0;
 	while ((key = ex->process.argv[++i]))
 	{
 		if ((key) && (!ft_strchr(key, '=')) && hash_verify_key(key))
@@ -30,7 +32,8 @@ int				ft_unset(t_ex *ex)
 		{
 			ft_putstr_fd(key, 2);
 			ft_putendl_fd(": not a valid identifier", 2);
+			code = -1;
 		}
 	}
-	return (1);
+	return (code);
 }

@@ -52,19 +52,22 @@ int			ft_export(t_ex *ex)
 {
 	char	*env;
 	int		i;
+	int		code;
 
 	if (ex->process.argc == 1)
 	{
 		hash_iterate(ex->shell->environ, print_export);
-		return (1);
+		return (0);
 	}
 	i = 0;
+	code = 0;
 	while (++i < ex->process.argc)
 	{
 		env = ex->process.argv[i];
 		if (env[0] == '=')
 		{
 			print_err("hash_import", "=", "not a valid identifier");
+			code = -1;
 			continue ;
 		}
 		if (ex->is_single_cmd_pipeline)
@@ -73,5 +76,5 @@ int			ft_export(t_ex *ex)
 			stringlist_destroy(ex->process.envp);
 		ex->process.envp = hash_to_envp(ex->shell->environ);
 	}
-	return (1);
+	return (code);
 }

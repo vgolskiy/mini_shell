@@ -28,6 +28,7 @@ static void	print_env(char *key, char *value)
 int			ft_env(t_ex *ex)
 {
 	int i;
+	int code;
 
 	if (ex->process.argc == 1)
 	{
@@ -35,11 +36,13 @@ int			ft_env(t_ex *ex)
 		return (1);
 	}
 	i = 0;
+	code = 0;
 	while (ex->process.argv[++i])
 	{
 		ft_putstr_fd("env: ", 2);
 		ft_putstr_fd(ex->process.argv[i], 2);
 		ft_putendl_fd(": No such file or directory", 2);
+		code = -1;
 	}
-	return (1);
+	return (code);
 }

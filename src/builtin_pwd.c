@@ -23,5 +23,5 @@ int	ft_pwd(t_ex *ex)
 	ft_putstr(tmp);
 	free(tmp);
 	ft_putchar('\n');
-	return (1);
+	return (0);
 }

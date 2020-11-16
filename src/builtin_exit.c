@@ -98,5 +98,5 @@ int				ft_exit(t_ex *ex)
 			exit_code < 0 ? exit(256 + exit_code % 256) : exit(exit_code % 256);
 		}
 	}
-	return (1);
+	return (0);
 }

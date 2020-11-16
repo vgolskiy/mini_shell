@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:38:56 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/16 14:02:18 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 15:46:48 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void		repl_check_pipeline_syntax(t_ex *ex)
 			ft_putendl_fd("Incorrect syntax", 2);
 		ex->shell->executing = false;
 		kill_all_pipeline(ex);
+		hash_set(ex->shell->environ, "?", "2");
 	}
 	while (cur && *cur && *(cur + 1))
 	{
@@ -40,6 +41,7 @@ void		repl_check_pipeline_syntax(t_ex *ex)
 				ft_putendl_fd("Incorrect syntax", 2);
 			ex->shell->executing = false;
 			kill_all_pipeline(ex);
+			hash_set(ex->shell->environ, "?", "2");
 		}
 		cur++;
 	}

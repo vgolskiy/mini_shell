@@ -37,5 +37,5 @@ int				ft_declare(t_ex *ex)
 	if (ex->process.envp)
 		stringlist_destroy(ex->process.envp);
 	ex->process.envp = hash_to_envp(ex->shell->environ);
-	return (1);
+	return (0);
 }

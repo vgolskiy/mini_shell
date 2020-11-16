@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:27:06 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/15 20:15:00 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 15:44:18 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,31 @@ static void		refresh_envp(t_ex *ex)
 	ex->process.envp = hash_to_envp(ex->shell->environ);
 }
 
+static void				set_success_code(t_ex *ex, int code) {
+	char *tmp;
+
+	tmp = ft_itoa(code);
+	assert(tmp != NULL, "set_success_code", "Malloc error", 2);
+	hash_set(ex->shell->environ, "?", tmp);
+	free(tmp);
+}
+
+
+
 int				handle_fork(char *cmd, t_ex *ex)
 {
 	t_builtin_cmd	current;
 	pid_t			pid;
 	char			*cmd_abs;
+	int 			code;
 
 	refresh_envp(ex);
 	current = get_builtin_by_name(cmd);
 	if (current.fn)
 	{
-		current.fn(ex);
+		code = current.fn(ex);
+		if (code > 0) code = 0;
+		set_success_code(ex, -code);
 		return (0);
 	}
 	pid = fork();

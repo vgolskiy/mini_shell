@@ -30,10 +30,7 @@ char				*resolve_newpwd(t_ex *ex)
 	if (ex->process.argc == 1 || ft_strcmp(ex->process.argv[1], "~") == 0)
 	{
 		if (!(nextpwd = hash_get(ex->shell->environ, "HOME")))
-		{
 			ft_putendl_fd("bash: cd: HOME not set", 2);
-			hash_set(ex->shell->environ, "?", "1");
-		}
 	}
 	else if (ft_strcmp(ex->process.argv[1], "-") == 0)
 	{
@@ -92,5 +89,5 @@ int					ft_cd(t_ex *ex)
 		return (-1);
 	}
 	ft_cd_update_state(ex, oldpwd);
-	return (1);
+	return (0);
 }

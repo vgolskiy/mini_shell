@@ -33,5 +33,5 @@ int				ft_echo(t_ex *ex)
 	}
 	if (!flag)
 		ft_putchar('\n');
-	return (1);
+	return (0);
 }
