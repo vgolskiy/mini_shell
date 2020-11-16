@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   repl.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:38:56 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 20:36:12 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:02:18 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		repl_check_pipeline_syntax(t_ex *ex)
 	t_token	**cur;
 
 	cur = ex->root->child;
-	if (cur && *cur && (*(cur +1)) == NULL && (*cur)->start == (*cur)->stop )
+	if (cur && *cur && (*(cur + 1)) == NULL && (*cur)->start == (*cur)->stop)
 	{
 		if (ex->shell->executing)
 			ft_putendl_fd("Incorrect syntax", 2);

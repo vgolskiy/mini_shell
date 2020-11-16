@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_core.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 18:57:20 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/06 11:13:58 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_hash	**new_block(void)
 	int		i;
 
 	p = malloc(16 * sizeof(t_hash *));
-	assert(p != NULL, "new_block", "Error allocating temporary memory", 1);
+	assert(p != NULL, "new_block", "Malloc error", 1);
 	i = 0;
 	while (i < 16)
 		p[i++] = NULL;
@@ -67,8 +67,7 @@ t_hash			*hash_create_node(void)
 
 	i = 0;
 	hash = malloc(sizeof(t_hash));
-	assert(hash != NULL, "hash_create_node",
-			"Error allocating temporary memory", 1);
+	assert(hash != NULL, "hash_create_node", "Malloc error", 1);
 	hash->letter = '\0';
 	hash->parent = NULL;
 	hash->value = NULL;

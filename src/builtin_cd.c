@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 13:43:50 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/16 10:39:42 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:08:38 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 #include "../include/envp.h"
 #include "../include/hash.h"
 
-static t_boolean is_resolvable(t_ex *ex, char *path) {
+static t_boolean	is_resolvable(t_ex *ex, char *path)
+{
 	if (!path)
-		return false;
+		return (false);
 	if (path[0] == '/')
-		return true;
-	return hash_has(ex->shell->environ, "PWD");
+		return (true);
+	return (hash_has(ex->shell->environ, "PWD"));
 }
 
-char	*resolve_newpwd(t_ex *ex)
+char				*resolve_newpwd(t_ex *ex)
 {
 	char *nextpwd;
 
@@ -39,16 +40,14 @@ char	*resolve_newpwd(t_ex *ex)
 		nextpwd = hash_get(ex->shell->environ, "OLDPWD");
 		ft_putendl_fd(nextpwd, 1);
 	}
-	else if (is_resolvable(ex, ex->process.argv[1])) {
+	else if (is_resolvable(ex, ex->process.argv[1]))
 		nextpwd = ex->process.argv[1];
-	} else {
+	else
 		nextpwd = NULL;
-	}
-
 	return (nextpwd);
 }
 
-void	print_err(char *msg1, char *variable, char *msg2)
+void				print_err(char *msg1, char *variable, char *msg2)
 {
 	char	*delimeter;
 
@@ -60,7 +59,8 @@ void	print_err(char *msg1, char *variable, char *msg2)
 	ft_putendl_fd(msg2, 2);
 }
 
-static void ft_cd_update_state(t_ex *ex, char *oldpwd) {
+static void			ft_cd_update_state(t_ex *ex, char *oldpwd)
+{
 	char	*nextpwd;
 
 	nextpwd = getcwd(NULL, 0);
@@ -72,7 +72,7 @@ static void ft_cd_update_state(t_ex *ex, char *oldpwd) {
 	free(nextpwd);
 }
 
-int		ft_cd(t_ex *ex)
+int					ft_cd(t_ex *ex)
 {
 	char	*oldpwd;
 	char	*nextpwd;

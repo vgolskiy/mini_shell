@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:25:43 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/10 17:29:18 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void						*resolve_argument(t_token *t, t_ex *ex,
 	struct s_resolution_context *ctx;
 
 	ctx = init_resolution_context(t, ex, list);
-	assert(ctx != NULL, "resolve_argument",
-					"Error allocating temporary memory", 1);
+	assert(ctx != NULL, "resolve_argument", "Malloc error", 1);
 	resolve_argument_impl(ctx);
 	free(ctx);
 	return (0);

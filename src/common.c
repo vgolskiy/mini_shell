@@ -6,7 +6,7 @@
 /*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:22:34 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/10 18:26:49 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 13:58:49 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ char		*concat_string(t_lst *list, t_boolean autofree)
 
 	parts = (char **)to_array(list);
 	str = malloc(get_total_length(parts) + 1);
-	assert(str != NULL, "concat_string",
-			": Error allocating temporary memory", 1);
+	assert(str != NULL, "concat_string", ": Malloc error", 1);
 	concat_string_core(str, parts, autofree);
 	return (str);
 }
@@ -66,7 +65,7 @@ char		*joinstring(char *a, char sep, char *b)
 
 	l = (int)ft_strlen(a) + 1 + (int)ft_strlen(b);
 	str = malloc(l + 1);
-	assert(str != NULL, "joinstring", ": Error allocating temporary memory", 1);
+	assert(str != NULL, "joinstring", ": Malloc error", 1);
 	c = str;
 	while (*a)
 		*(c++) = *(a++);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_helpers.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:25:43 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/05 22:39:19 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 13:58:49 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ char		*temp_string(int size)
 	char *tmp;
 
 	tmp = malloc(size);
-	assert(tmp != NULL, "temp_string",
-		": Error allocating temporary memory", 1);
+	assert(tmp != NULL, "temp_string", ": Malloc error", 1);
 	ft_memset(tmp, '\0', size);
 	return (tmp);
 }

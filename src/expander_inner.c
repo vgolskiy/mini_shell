@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_inner.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:25:43 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/10 17:42:14 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	resolve_environ_value(struct s_resolution_context *ctx)
 	if (!node->value)
 		return ;
 	tmp = ft_strdup(node->value);
-	assert(tmp != NULL, "resolve_environ_value",
-			": Error allocating temporary memory", 1);
+	assert(tmp != NULL, "resolve_environ_value", ": Malloc error", 1);
 	push_to_list(ctx->list_sec, tmp);
 }

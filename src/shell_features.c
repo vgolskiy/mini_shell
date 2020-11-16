@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_features.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:40:24 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 19:52:42 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,13 @@ t_ex		*init_ex(void)
 	t_ex *ex;
 
 	ex = malloc(sizeof(t_ex));
-	assert(ex != NULL, "init_ex", ": Error allocating temporary memory", 1);
+	assert(ex != NULL, "init_ex", ": Malloc error", 1);
 	ex->process.fwd = NULL;
 	ex->process.argv = NULL;
 	ex->process.envp = NULL;
 	ex->user = NULL;
 	ex->shell = malloc(sizeof(t_mini_shell));
-	assert(ex->shell != NULL, "init_ex",
-			": Error allocating temporary memory", 1);
+	assert(ex->shell != NULL, "init_ex", ": Malloc error", 1);
 	ex->shell->running = true;
 	ex->shell->executing = false;
 	ex->shell->interactive = ft_isatty(0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common_lists.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 15:22:34 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/06 17:24:29 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_lst		*init_list(void)
 	t_lst *p;
 
 	p = malloc(sizeof(t_lst));
-	assert(p != NULL, "init_list", ": Error allocating temporary memory", 1);
+	assert(p != NULL, "init_list", ": Malloc error", 1);
 	p->count = 0;
 	p->first = NULL;
 	p->last = NULL;
@@ -31,8 +31,7 @@ int			push_to_list(t_lst *list, void *value)
 	if (!value)
 		return (list->count);
 	el = malloc(sizeof(t_listelement));
-	assert(el != NULL, "push_to_list",
-						": Error allocating temporary memory", 1);
+	assert(el != NULL, "push_to_list", ": Malloc error", 1);
 	el->value = value;
 	el->next = NULL;
 	if (!list->last)
@@ -70,7 +69,7 @@ void		**to_array(t_lst *list)
 	t_listelement	*prev;
 
 	array = malloc((list->count + 1) * sizeof(void *));
-	assert(array != NULL, "to_array", ": Error allocating temporary memory", 1);
+	assert(array != NULL, "to_array", ": Malloc error", 1);
 	position = 0;
 	el = list->first;
 	free(list);

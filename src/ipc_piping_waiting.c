@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ipc_piping_waiting.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 15:36:00 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/15 20:26:41 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 14:03:36 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ void	wait_for_all_cmds(t_ex *ex)
 	}
 }
 
-int	count_cmds(t_ex *ex)
+int		count_cmds(t_ex *ex)
 {
 	t_token	**cur;
 	int		i;
 
 	i = 0;
 	cur = ex->pipeline->child;
-	while(cur && *cur)
+	while (cur && *cur)
 	{
 		cur++;
 		i++;
@@ -59,12 +59,11 @@ void	wait_for_pipeline(pid_t pid, t_ex *ex)
 	if ((status & 0x7f) == 0)
 	{
 		x = ft_itoa((status & 0xff00) >> 8);
-		assert(x != NULL, "waitpid", "Error allocating temporary memory", 1);
+		assert(x != NULL, "waitpid", "Malloc error", 1);
 		hash_set(ex->shell->environ, "?", x);
 		free(x);
 	}
 }
-
 
 void	kill_all_pipeline(t_ex *ex)
 {
@@ -82,4 +81,3 @@ void	kill_all_pipeline(t_ex *ex)
 		i++;
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:25:43 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/11 01:24:38 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char		**get_resolution_paths(t_hash *root)
 	assert(raw != NULL, NULL,
 			"PATH is empty: only builtin functions available", 127);
 	tmp = ft_split(raw, ':');
-	assert(tmp != NULL, "get_resolution_paths",
-			": Error allocating temporary memory", 1);
+	assert(tmp != NULL, "get_resolution_paths", ": Malloc error", 1);
 	return (tmp);
 }

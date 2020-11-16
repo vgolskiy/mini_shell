@@ -6,7 +6,7 @@
 /*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 16:24:34 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/16 10:19:28 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 13:58:49 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ void		stringlist_destroy(char **list)
 	free(list);
 }
 
-
 int			hash_verify_key(char *key)
 {
-	int i;
-	char c;
+	int		i;
+	char	c;
 
 	i = -1;
 	if (!key || !(*key))
@@ -37,23 +36,24 @@ int			hash_verify_key(char *key)
 		return (0);
 	while ((c = key[++i]))
 	{
-		if (ft_isalpha(c) || (c == '_' || c == '%')) {
+		if (ft_isalpha(c) || (c == '_' || c == '%'))
 			continue;
-		}
-		if (ft_isdigit(c)) {
+		if (ft_isdigit(c))
 			continue;
-		}
-		return 0;
+		return (0);
 	}
 	return (1);
 }
 
 static void	hash_import2(t_hash *root, char *envp, char *end, t_boolean force)
 {
+	char	*orig_envp;
 	char	*temp;
 	char	*value;
 	char	*prefix;
 
+	orig_envp = ft_strdup(envp);
+	assert(orig_envp != NULL, "hash_import", ": Malloc error", 1);
 	value = end + 1;
 	prefix = NULL;
 	*(end--) = '\0';
@@ -62,27 +62,24 @@ static void	hash_import2(t_hash *root, char *envp, char *end, t_boolean force)
 		*(end--) = '\0';
 		prefix = hash_get(root, envp);
 	}
-	if ((ft_strchr(envp, '+') || (ft_strlen(envp) == 0) || (hash_verify_key(envp) == 0))
-	&& !force)
-		print_err("hash_import", envp, "not a valid identifier");
+	if (!hash_verify_key(envp) && !force)
+		print_err("hash_import", orig_envp, "not a valid identifier");
 	else
 	{
 		temp = ft_strjoin(prefix, value);
-		assert(temp != NULL, "hash_import",
-			": Error allocating temporary memory", 1);
+		assert(temp != NULL, "hash_import", ": Malloc error", 1);
 		hash_set(root, envp, temp);
 		free(temp);
 	}
+	free(orig_envp);
 }
 
 void		hash_import(t_hash *root, char *envp, t_boolean force)
 {
-	char	*temp2;
 	char	*end;
 
 	envp = ft_strdup(envp);
-	assert(envp != NULL, "hash_import",
-			": Error allocating temporary memory", 1);
+	assert(envp != NULL, "hash_import", ": Malloc error", 1);
 	end = ft_strchr(envp, '=');
 	if (!end)
 	{
@@ -90,17 +87,15 @@ void		hash_import(t_hash *root, char *envp, t_boolean force)
 		{
 			print_err("export", envp, "not a valid identifier");
 			free(envp);
-			return;
+			return ;
 		}
 		if (!hash_has(root, envp))
 			hash_set(root, envp, NULL);
 		free(envp);
 		return ;
 	}
-	temp2 = ft_strdup(envp);
 	hash_import2(root, envp, end, force);
 	free(envp);
-	free(temp2);
 }
 
 char		*hash_get_envp(t_hash *root, char *key)

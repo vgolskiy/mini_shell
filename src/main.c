@@ -6,7 +6,7 @@
 /*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 18:54:54 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/13 21:36:53 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int			main(int argc, char **argv, char **envp)
 	ex->user = hash_has(ex->shell->environ, "USER") ?
 	ft_strdup(hash_get(ex->shell->environ, "USER")) :
 	ft_strdup("Unauthorized");
-	assert(ex->user != NULL, "hash_import",
-		": Error allocating temporary memory", 1);
+	assert(ex->user != NULL, "hash_import", ": Malloc error", 1);
 	hash_set(ex->shell->environ, "?", "0");
 	getprompt(ex);
 	setup_shell_pwd(ex);

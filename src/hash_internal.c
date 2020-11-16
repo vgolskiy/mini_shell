@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_internal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 19:44:00 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/06 11:22:25 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 13:59:24 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_boolean			hash_set_node(t_hash *hash, char *key, char *value)
 		hash->value = ft_strdup(value);
 	hash->key = ft_strdup(key);
 	assert((hash->key != NULL) && (!value || (hash->value != NULL)),
-			"hash_set_node", ": Error allocating temporary memory", 1);
+			"hash_set_node", ": Malloc error", 1);
 	return (code);
 }
 

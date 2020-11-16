@@ -6,7 +6,7 @@
 /*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 17:24:00 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/10 20:24:38 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 14:01:05 by mskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,12 @@ t_lexer		*init_parser(char *input)
 	t_lexer *p;
 
 	p = malloc(sizeof(t_lexer));
-	assert(p != NULL, "hash_set_node",
-		": Error allocating temporary memory", 1);
+	assert(p != NULL, "hash_set_node", ": Malloc error", 1);
 	p->str = input;
 	p->cat = ft_strdup(input);
 	p->stt = ft_strdup(input);
-	assert(p->cat != NULL, "hash_set_node",
-		": Error allocating temporary memory", 1);
-	assert(p->stt != NULL, "hash_set_node",
-		": Error allocating temporary memory", 1);
+	assert(p->cat != NULL, "hash_set_node", ": Malloc error", 1);
+	assert(p->stt != NULL, "hash_set_node", ": Malloc error", 1);
 	p->len = (int)ft_strlen(input);
 	ft_memset(p->stt, '_', p->len);
 	p->stt[0] = ' ';
