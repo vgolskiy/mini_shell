@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+         #
+#    By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/28 01:17:41 by mskinner          #+#    #+#              #
-#    Updated: 2020/11/13 18:17:41 by mskinner         ###   ########.fr        #
+#    Updated: 2020/11/16 19:58:31 by dchief           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SOURCE_FILES =	assert.c                builtin_pwd.c           expander_impl.c  
 				builtin_echo.c          common_lists.c          functions_fork.c        ipc_forwarding.c        lexer_predicates.c      resolve_path.c \
 				builtin_env.c           envp_to_hash.c          get_next_line.c         ipc_piping.c            main.c                  shell_features.c \
 				builtin_exit.c          expander.c              handle_path.c           ipc_piping_testing.c    parser.c                signals.c \
-				builtin_export.c        expander_helpers.c      hash.c                  ipc_piping_waiting.c    parser_children.c
+				builtin_export.c        expander_helpers.c      hash.c                  ipc_piping_waiting.c    parser_children.c       functions_fork_helpers.c
 HEADER_FILES =	common.h        envp.h          executor.h      get_next_line.h hash.h          lexer.h         minishell.h     parser.h
 
 OBJ = $(SOURCE_FILES:%.c=$(BUILDDIR)/%.o)
@@ -44,7 +44,7 @@ $(BINDIR)/$(NAME): ${OBJ} ${HRD}
 	@$(CC) $(CFLAGS) $(OBJ) -L\libft -lft -o $(BINDIR)/$(NAME)
 
 all: $(BINDIR)/$(NAME)
-	
+
 clean:
 	@rm -rf ${BUILDDIR}
 	@$(MAKE) -C $(LIBFT) clean

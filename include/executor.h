@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 14:19:53 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/15 20:30:34 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 20:00:20 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,7 @@ char				*linegetter(char *prompt, t_ex *ex);
 t_boolean			ft_isatty(int fd);
 t_boolean			ft_isafile(int fd);
 int					count_cmds(t_ex *ex);
+void				set_success_code(t_ex *ex, int code);
+void				refresh_envp(t_ex *ex);
 
 #endif

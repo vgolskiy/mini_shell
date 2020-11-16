@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mskinner <v.golskiy@ya.ru>                 +#+  +:+       +#+        */
+/*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 17:29:45 by dchief            #+#    #+#             */
-/*   Updated: 2020/11/16 14:10:29 by mskinner         ###   ########.fr       */
+/*   Updated: 2020/11/16 19:40:52 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,12 @@ static void	print_export(char *key, char *value)
 	ft_putstr("\n");
 }
 
-int			ft_export(t_ex *ex)
+int			ft_export_changing(t_ex *ex)
 {
 	char	*env;
 	int		i;
 	int		code;
 
-	if (ex->process.argc == 1)
-	{
-		hash_iterate(ex->shell->environ, print_export);
-		return (0);
-	}
 	i = 0;
 	code = 0;
 	while (++i < ex->process.argc)
@@ -77,4 +72,14 @@ int			ft_export(t_ex *ex)
 		ex->process.envp = hash_to_envp(ex->shell->environ);
 	}
 	return (code);
+}
+
+int			ft_export(t_ex *ex)
+{
+	if (ex->process.argc == 1)
+	{
+		hash_iterate(ex->shell->environ, print_export);
+		return (0);
+	}
+	return (ft_export_changing(ex));
 }

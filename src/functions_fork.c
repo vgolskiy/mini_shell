@@ -6,7 +6,7 @@
 /*   By: dchief <dchief@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/19 15:27:06 by mskinner          #+#    #+#             */
-/*   Updated: 2020/11/16 15:44:18 by dchief           ###   ########.fr       */
+/*   Updated: 2020/11/16 19:59:11 by dchief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,44 +63,10 @@ static char		*get_path(char *cmd, t_ex *ex)
 	return (fullpath);
 }
 
-static void		refresh_envp(t_ex *ex)
+char			*handle_fork_get_cmd_abs(char *cmd, t_ex *ex)
 {
-	if (ex->process.envp)
-		stringlist_destroy(ex->process.envp);
-	ex->process.envp = hash_to_envp(ex->shell->environ);
-}
-
-static void				set_success_code(t_ex *ex, int code) {
-	char *tmp;
-
-	tmp = ft_itoa(code);
-	assert(tmp != NULL, "set_success_code", "Malloc error", 2);
-	hash_set(ex->shell->environ, "?", tmp);
-	free(tmp);
-}
-
-
-
-int				handle_fork(char *cmd, t_ex *ex)
-{
-	t_builtin_cmd	current;
-	pid_t			pid;
 	char			*cmd_abs;
-	int 			code;
 
-	refresh_envp(ex);
-	current = get_builtin_by_name(cmd);
-	if (current.fn)
-	{
-		code = current.fn(ex);
-		if (code > 0) code = 0;
-		set_success_code(ex, -code);
-		return (0);
-	}
-	pid = fork();
-	assert(pid >= 0, "minishell", "Falied to fork process", 1);
-	if (pid > 0)
-		return (pid);
 	cmd_abs = get_path(cmd, ex);
 	if (cmd_abs)
 	{
@@ -109,6 +75,31 @@ int				handle_fork(char *cmd, t_ex *ex)
 		cmd_abs = hash_get(ex->shell->environ, "_");
 	}
 	assert(cmd_abs != NULL, cmd, ": command not found", 127);
+	return (cmd_abs);
+}
+
+int				handle_fork(char *cmd, t_ex *ex)
+{
+	t_builtin_cmd	current;
+	pid_t			pid;
+	char			*cmd_abs;
+	int				code;
+
+	refresh_envp(ex);
+	current = get_builtin_by_name(cmd);
+	if (current.fn)
+	{
+		code = current.fn(ex);
+		if (code > 0)
+			code = 0;
+		set_success_code(ex, -code);
+		return (0);
+	}
+	pid = fork();
+	assert(pid >= 0, "minishell", "Falied to fork process", 1);
+	if (pid > 0)
+		return (pid);
+	cmd_abs = handle_fork_get_cmd_abs(cmd, ex);
 	refresh_envp(ex);
 	reset_signal();
 	execve(cmd_abs, ex->process.argv, ex->process.envp);
